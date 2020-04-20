@@ -80,3 +80,57 @@ class KF_2D:
         # Matrix C or H -> Observation Matrix
         self.matrixC = np.eye(4)
         self.matrixH = np.eye(4)
+
+        # Get Sensor Noise Covariance Matrix
+        self.R = self.getSensorNoiseCovMat(self.deltaX, self.deltaY, self.deltaXdot, self.deltaYdot)
+
+        # Get Initial Process Covariance Matrix
+        self.Pk = self.getInitProcessCovMat(self.deltaPx, self.deltaPy, self.deltaPxdot, self.deltaPydot)
+
+        # Get Process Noise Covariance Matrix
+        #self.Q = self.getProcNoiseCovMat(self.noiseFactor)
+        self.Q = np.eye(4)
+
+
+        def getSensorNoiseCovMat(self, deltaX, deltaY, deltaXdot, deltaYdot):
+            R = np.eye(4)
+            R[0,0] = deltaX ** 2
+            R[1,1] = deltaY ** 2
+            R[2,2] = deltaXdot ** 2
+            R[3,3] = deltaYdot ** 2
+
+            return R
+
+
+        def getInitProcessCovMat(self, deltaPx, deltaPy, deltaPxdot, deltaPydot):
+            procCovMat = np.eye(4)
+            procCovMat[0,0] = deltaPx ** 2
+            procCovMat[1,1] = deltaPy ** 2
+            procCovMat[2,2] = deltaPxdot ** 2
+            procCovMat[3,3] = deltaPydot ** 2
+
+            return procCovMat
+
+
+        def getProcNoiseCovMat(self, noiseFactor):
+            # continuos time model
+            procNoiseCovMat =  np.eye(4)
+            procNoiseCovMat[0,0] = (1/63)*math.pow(self.deltaT, 7)
+            procNoiseCovMat[0,1] = (1/36)*math.pow(self.deltaT, 6)
+            procNoiseCovMat[0,2] = (1/15)*math.pow(self.deltaT, 5)
+            procNoiseCovMat[0,3] = (1/12)*math.pow(self.deltaT, 4)
+            procNoiseCovMat[1,0] = (1/36)*math.pow(self.deltaT, 6)
+            procNoiseCovMat[1,1] = (1/15)*math.pow(self.deltaT, 5)
+            procNoiseCovMat[1,2] = (1/12)*math.pow(self.deltaT, 4)
+            procNoiseCovMat[1,3] = (1/6)*math.pow(self.deltaT, 3)
+            procNoiseCovMat[2,0] = (1/15)*math.pow(self.deltaT, 5)
+            procNoiseCovMat[2,1] = (1/12)*math.pow(self.deltaT, 4)
+            procNoiseCovMat[2,2] = (1/6)*math.pow(self.deltaT, 3)
+            procNoiseCovMat[2,3] = (1/2)*math.pow(self.deltaT, 2)
+            procNoiseCovMat[3,0] = (1/12)*math.pow(self.deltaT, 4)
+            procNoiseCovMat[3,1] = (1/6)*math.pow(self.deltaT, 3)
+            procNoiseCovMat[3,2] = (1/2)*math.pow(self.deltaT, 2)
+            procNoiseCovMat[2,3] = (1/2)*math.pow(self.deltaT, 2)
+            procNoiseCovMat[3,3] = self.deltaT
+
+            return procNoiseCovMat
