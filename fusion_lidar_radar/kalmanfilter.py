@@ -34,7 +34,7 @@ class KalmanFilter:
     def updateF(self, dt):
         self.F[0,2], self.F[1,3] = dt, dt
     
-    def getx(self)
+    def getx(self):
         return self.x
     
     def predict(self):
@@ -50,8 +50,8 @@ class KalmanFilter:
         # x = x + K y
         # P = (I - K H) * P
         y = z - Hx
-        S = H.dot(P).dot(H.T) + R
-        K = P.dot(H.T).dot(np.linalg.inv(S))
+        S = H.dot(self.P).dot(H.T) + R
+        K = self.P.dot(H.T).dot(np.linalg.inv(S))
 
         self.x = self.x + K.dot(y)
         self.P = (self.I - K.dot(H)).dot(self.P)
