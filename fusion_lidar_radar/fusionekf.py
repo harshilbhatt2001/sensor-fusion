@@ -18,7 +18,7 @@ class FusionEKF:
     def __init__(self, d):
         self.initialized = False
         self.timestamp = 0
-        self.n = d['number of states']
+        self.n = d['number_of_states']
         self.P = ['initial_process_matrix']
         self.F = d['inital_state_transition_matrix']
         self.Q = d['initial_noise_matrix']
