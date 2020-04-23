@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri Apr 17 01:34:22 2020
+Created on Fri Apr 23 01:34:22 2020
 
 @author: Harshil
 """
@@ -93,6 +93,6 @@ class FusionEKF:
         else:
             self.start(data)
     
-    def get(self)
+    def get(self):
         return self.kalmanFilter.getx()
             
