@@ -23,7 +23,7 @@ class DataPoint:
             self.data = [d['x'], d['y'], d['vx'], d['vy']]
             self.raw = self.data.copy()
         
-        elif self.name == "lidar":
+        elif self.name == 'lidar':
             self.data = [d['x'], d['y'], 0, 0]
             self.raw = [d['x'], d['y']]
         

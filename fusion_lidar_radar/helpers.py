@@ -55,20 +55,21 @@ def parse_data(file_path):
 
             elif data[0] == 'R':
                 
-                sensor_data = DataPoint({
-                    'timestamp': int(data[3]),
-                    'name': 'lidar',
-                    'rho': float(data[1]),
+                sensor_data = DataPoint({ 
+                    'timestamp': int(data[4]),
+                    'name': 'radar',
+                    'rho': float(data[1]), 
                     'phi': float(data[2]),
                     'drho': float(data[3])
                 })
 
-                g = {'timestamp': int(data[3]),
+
+                g = {'timestamp': int(data[4]),
                     'name': 'state',
-                    'x': float(data[4]),
-                    'y': float(data[5]),
-                    'vx': float(data[6]),
-                    'vy': float(data[7])
+                    'x': float(data[5]),
+                    'y': float(data[6]),
+                    'vx': float(data[7]),
+                    'vy': float(data[8])
                     }
 
                 ground_truth = DataPoint(g)
@@ -78,7 +79,7 @@ def parse_data(file_path):
     
     return all_sensor_data, all_ground_truths
 
-def get_state_estimation(EKF, all_sensor_data):
+def get_state_estimations(EKF, all_sensor_data):
     '''
     Calc state estimate in FusionEKF instance and sensor measurements
     

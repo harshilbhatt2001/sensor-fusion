@@ -47,6 +47,8 @@ def polar_to_cartesian(rho, phi, drho):
 def time_difference(t1, t2):
     '''
     computes time difference in microseconds
+    args -> t1: previous time
+            t2: current time
     '''
     return (t2 - t1) / 1000000.0
 

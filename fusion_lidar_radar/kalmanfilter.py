@@ -40,7 +40,7 @@ class KalmanFilter:
     def predict(self):
         # x = F x
         # P = F P Ft + Q
-        self.x = self.F.dot(self.x)
+        self.x = self.F.dot(self.x) 
         self.P = self.F.dot(self.P).dot(self.F.T) + self.Q
     
     def update(self, z, H, Hx, R):

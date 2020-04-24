@@ -36,7 +36,7 @@ class FusionEKF:
 
         x,y = self.a
 
-        Q = np.zeros(4)
+        Q = np.zeros((4,4))
         
         Q[0,0] = dt4 * x / 4
         Q[0,2] = dt3 * x / 2
